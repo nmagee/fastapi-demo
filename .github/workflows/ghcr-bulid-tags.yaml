@@ -1,0 +1,53 @@
+name: 02-ghcr-tag-push
+
+on:
+  push:
+    tags: ['v*.*']
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nmagee/fastapi-demo
+
+jobs:
+
+  build-push-docker:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+
+      - uses: actions/checkout@v2
+      - name: Set ENV
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: echo VAR
+        run: |
+          echo ${{ env.RELEASE_VERSION }}
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v1
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v2
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+          # ghcr.io/nmagee/fastapi-demo:v1.7
+          labels: ${{ steps.meta.outputs.labels }}
