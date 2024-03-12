@@ -1,6 +1,6 @@
 # FastAPI Demo
 
-## Development
+## Development 
 
 As typical with FastAPI development, run the local server as you code:
 ```
