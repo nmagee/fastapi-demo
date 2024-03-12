@@ -1,11 +1,11 @@
 name: 01-ghcr-push
 
 on:
+  workflow_dispatch
   # schedule:
   #   - cron: '30 22 * * *'
   push:
     branches: [ main ]
-  workflow_dispatch
 
 env:
   REGISTRY: ghcr.io
