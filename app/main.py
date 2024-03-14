@@ -14,7 +14,6 @@ class Item(BaseModel):
     price: float
     tax: Optional[float] = None
 
-
 @app.get("/")  # zone apex
 def read_root():
     return {"Hello": "World"}
@@ -26,10 +25,6 @@ def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
 
-@app.get("/foo")
-def foo():
-    return {"foo":"foo"}
-    
 
 # Introduce data types and defaults from the Optional library
 @app.get("/items/{item_id}")
