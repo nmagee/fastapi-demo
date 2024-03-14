@@ -7,4 +7,9 @@
 tasks:
   - init: pip install -r requirements.txt
 
+ports:
+    - name: API
+      description: Preview changes to your application
+      port: 8000
+      onOpen: open-browser
 
