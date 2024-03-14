@@ -3,9 +3,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-import requests
-import json
-import boto3
+# import boto3
 
 app = FastAPI()
 
@@ -72,17 +70,12 @@ def patch_item(item_id: int, item: Item):
     return {"action": "patch", "item_id": item_id}
 
 
-@app.get("/github/repos/{user}")
-def get_github_repos(user: str):
-    url = "https://api.github.com/users/" + user + "/repos"
-    response = requests.get(url)
-    body = json.loads(response.text)
-    return {"repos": body}
+# Use another library to make an external API request.
+# An API within an API!
+# https://api.github.com/users/garnaat/repos
 
 
-# Use another Py library to make an external API request.
-# This is simpler than building the API call by hand using
-# the `requests` library:
+# Incorporate with boto3: simpler than the `requests` library:
 # @app.get("/aws/s3")
 # def fetch_buckets():
 #     s3 = boto3.client("s3")
