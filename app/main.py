@@ -3,17 +3,37 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import requests
+import json
+import boto3
 
 app = FastAPI()
 
+# The URL for this API has a /docs endpoint that lets you see and test
+# your various endpoints/methods.
+
+
 # Model data you are expecting.
 # Set defaults, data types, etc.
+#
+# Imagine the JSON below as a payload via POST method
+# The endpoint can then parse the data by field (name, description, price, tax)
+# {
+#     "name":"Trek Domaine 5000",
+#     "description": "Racing frame",
+#     "price": 7200,
+#     "tax": 381
+# }
+
 class Item(BaseModel):
     name: str
     description: Optional[str] = None
     price: float
     tax: Optional[float] = None
 
+
+# Zone apex is the 'default' page for a URL
+# This will return a simple hello world via GET method.
 @app.get("/")  # zone apex
 def read_root():
     return {"Hello": "World"}
@@ -29,14 +49,13 @@ def add_me(number_1: int, number_2: int):
 # Introduce data types and defaults from the Optional library
 @app.get("/items/{item_id}")
 def read_items(item_id: int, q: str = None, s: str = None):
-    # to-do: reach into database, use item_id as query parameter
-    # and fetch results. Parse into payload.
+    # to-do: could be used to read from/write to database, use item_id as query parameter
+    # and fetch results. The q and s URL parameters are optional.
     # - database
     # - flat text
     # - another api (internal)
     # - another api (external)
     return {"item_id": item_id, "q": q, "s": s}
-
 
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
@@ -51,6 +70,14 @@ def delete_item(item_id: int, item: Item):
 @app.patch("/items/{item_id}")
 def patch_item(item_id: int, item: Item):
     return {"action": "patch", "item_id": item_id}
+
+
+@app.get("/github/repos/{user}")
+def get_github_repos(user: str):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return {"repos": body}
 
 
 # Use another Py library to make an external API request.
