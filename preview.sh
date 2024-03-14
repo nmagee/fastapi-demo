@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd app
-uvicorn main:app --reload
+/home/gitpod/.pyenv/shims/uvicorn main:app --reload
