@@ -6,8 +6,14 @@
 
 tasks:
   - init: pip install -r requirements.txt
-  - name: Start Preview
-    command: sleep 5 && cd app && /home/gitpod/.pyenv/shims/uvicorn main:app --reload
+  - init: |
+      echo "Waiting for main init to complete"
+      sleep 3
+    command: |
+      echo "Starting FastAPI server (fastapi/uvicorn)"
+      pyenv global system
+      source ./.gitpod.env.sh
+      python3 -m uvicorn main:app --reload --log-level debug
 
 ports:
     - name: API
