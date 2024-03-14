@@ -1,6 +1,16 @@
 # FastAPI Demo
 
-## Setup
+## Getting Started
+
+### Gitpod
+
+The easiest way to start working is to append `https://gitpod.io/#` before the URL of your repository. This should look something like but using the URL of your fork:
+
+> [**https://gitpod.io/#https://github.com/nmagee/fastapi-demo**](https://gitpod.io/#https://github.com/nmagee/fastapi-demo)
+
+From within Gitpod, you have a full IDE to work with the code. You can run commands in the terminal, preview the application, and git add/commit/push.
+
+### Local
 
 After forking this repository for your own work, you may need to set up an isolated environment in Python. I would suggest using `pipenv` for this:
 
@@ -12,8 +22,8 @@ python3 -m pip install pipenv
 # create a new virtual environment
 pipenv shell
 
-# You can exit from that virtual environment at any point
-# You can return to it again by running "pipenv shell" from that directory.
+# Exit the virtual environment at any point with "exit"
+# Return to it by running "pipenv shell" from the directory.
 ```
 
 ## Development 
