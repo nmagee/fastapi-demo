@@ -11,6 +11,41 @@ app = FastAPI()
 # your various endpoints/methods.
 
 
+# The zone apex is the 'default' page for a URL
+# This will return a simple hello world via GET method.
+@app.get("/")  # zone apex
+def read_root():
+    return {"Hello": "World"}
+
+
+# Endpoints and Methods
+# /blah - endpoint
+# GET/POST/DELETE/PATCH - methods
+# 
+# Simple GET method demo
+# Adds two integers as PATH parameters
+@app.get("/add/{number_1}/{number_2}")
+def add_me(number_1: int, number_2: int):
+    sum = number_1 + number_2
+    return {"sum": sum}
+
+# Let's develop a new one:
+
+
+## Parameters
+# Introduce parameter data types and defaults from the Optional library
+@app.get("/items/{item_id}")
+def read_items(item_id: int, q: str = None, s: str = None):
+    # to-do: could be used to read from/write to database, use item_id as query parameter
+    # and fetch results. The q and s URL parameters are optional.
+    # - database
+    # - flat text
+    # - another api (internal)
+    # - another api (external)
+    return {"item_id": item_id, "q": q, "s": s}
+
+
+## Data Modeling
 # Model data you are expecting.
 # Set defaults, data types, etc.
 #
@@ -28,32 +63,6 @@ class Item(BaseModel):
     description: Optional[str] = None
     price: float
     tax: Optional[float] = None
-
-
-# Zone apex is the 'default' page for a URL
-# This will return a simple hello world via GET method.
-@app.get("/")  # zone apex
-def read_root():
-    return {"Hello": "World"}
-
-
-# Adds two integers as PATH parameters
-@app.get("/add/{number_1}/{number_2}")
-def add_me(number_1: int, number_2: int):
-    sum = number_1 + number_2
-    return {"sum": sum}
-
-
-# Introduce data types and defaults from the Optional library
-@app.get("/items/{item_id}")
-def read_items(item_id: int, q: str = None, s: str = None):
-    # to-do: could be used to read from/write to database, use item_id as query parameter
-    # and fetch results. The q and s URL parameters are optional.
-    # - database
-    # - flat text
-    # - another api (internal)
-    # - another api (external)
-    return {"item_id": item_id, "q": q, "s": s}
 
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
