@@ -1,5 +1,21 @@
 # FastAPI Demo
 
+## Setup
+
+After forking this repository for your own work, you may need to set up an isolated environment in Python. I would suggest using `pipenv` for this:
+
+```
+# Install pipenv itself
+python3 -m pip install pipenv
+
+# Then from within the root directory of this project,
+# create a new virtual environment
+pipenv shell
+
+# You can exit from that virtual environment at any point
+# You can return to it again by running "pipenv shell" from that directory.
+```
+
 ## Development 
 
 As typical with FastAPI development, run the local server as you code:
@@ -11,14 +27,14 @@ cd app
 uvicorn main:app --reload
 ```
 
-Your dev site is now running locally at [http://localhost:8000/](http://localhost:8000/)
+Your dev site is now running locally at [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 
 ## Sample Endpoints and Methods
 
 This template contains a variety of methods and endpoints:
 
-### `http://localhost:8000/add/7/3`
+### `http://127.0.0.1:8000/add/7/3`
 
 Adds two integers taken as URL path parameters
 ```
@@ -27,7 +43,7 @@ Adds two integers taken as URL path parameters
 }
 ```
 
-### `http://localhost:8000/items/1234567890?q=foo&s=bar`
+### `http://127.0.0.1:8000/items/1234567890?q=foo&s=bar`
 
 Takes an integer path parameter `1234567890` as well as two query string parameters `foo` and `bar`.
 
