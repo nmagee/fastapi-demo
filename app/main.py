@@ -13,8 +13,9 @@ app = FastAPI()
 
 # The zone apex is the 'default' page for a URL
 # This will return a simple hello world via GET method.
+
 @app.get("/")  # zone apex
-def read_root():
+def zone_apex():
     return {"Hello": "World"}
 
 
