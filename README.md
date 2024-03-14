@@ -4,7 +4,7 @@
 
 ### Gitpod
 
-The easiest way to start working is to append `https://gitpod.io/#` before the URL of your repository. This should look something like but using the URL of your fork:
+The easiest way to start working is to append `https://gitpod.io/#` before the URL of your repository. This should look something like (but use the URL of your fork):
 
 > [**https://gitpod.io/#https://github.com/nmagee/fastapi-demo**](https://gitpod.io/#https://github.com/nmagee/fastapi-demo)
 

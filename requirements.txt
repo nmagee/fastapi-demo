@@ -3,3 +3,4 @@ typing
 pydantic
 requests
 uvicorn
+boto3
