@@ -6,18 +6,14 @@
 
 tasks:
   - init: pip install -r requirements.txt
-  - init: |
-      echo "Waiting for main init to complete"
-      sleep 3
-    command: |
-      echo "Starting FastAPI server (fastapi/uvicorn)"
-      pyenv global system
-      cd app && python3 -m uvicorn main:app --reload --log-level debug
+  - name: Start FastAPI Server
+    init: gp sync-await bundle
+    command: cd app && python3 -m uvicorn main:app --reload --log-level debug
 
 ports:
-    - name: API
-      description: Preview changes to your application
-      port: 8000
-      onOpen: open-browser
-      visibility: public
+  - name: API
+    description: Preview changes to your application
+    port: 8000
+    onOpen: open-browser
+    visibility: public
 
