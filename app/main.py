@@ -3,7 +3,6 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-import boto3
 
 app = FastAPI()
 
@@ -58,9 +57,9 @@ def patch_item(item_id: int, item: Item):
 # Use another Py library to make an external API request.
 # This is simpler than building the API call by hand using
 # the `requests` library:
-@app.get("/aws/s3")
-def fetch_buckets():
-    s3 = boto3.client("s3")
-    response = s3.list_buckets()
-    buckets = response['Buckets']
-    return {"buckets": buckets}
+# @app.get("/aws/s3")
+# def fetch_buckets():
+#     s3 = boto3.client("s3")
+#     response = s3.list_buckets()
+#     buckets = response['Buckets']
+#     return {"buckets": buckets}
