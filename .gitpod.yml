@@ -12,8 +12,7 @@ tasks:
     command: |
       echo "Starting FastAPI server (fastapi/uvicorn)"
       pyenv global system
-      source ./.gitpod.env.sh
-      python3 -m uvicorn main:app --reload --log-level debug
+      cd app && python3 -m uvicorn main:app --reload --log-level debug
 
 ports:
     - name: API
