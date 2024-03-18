@@ -16,7 +16,7 @@ app = FastAPI()
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "World"}
+    return {"Hello": "World Wide Web"}
 
 
 # Endpoints and Methods
