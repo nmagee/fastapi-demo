@@ -3,6 +3,8 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import json
+import requests
 # import boto3
 
 app = FastAPI()
@@ -17,6 +19,15 @@ app = FastAPI()
 @app.get("/")  # zone apex
 def zone_apex():
     return {"Hello": "World Wide Web"}
+
+
+#returns the repos for a given user
+@app.get("/github/repos/{user}")
+def github_user_repos(user):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return {"repos": body}
 
 
 # Endpoints and Methods
