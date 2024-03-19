@@ -18,7 +18,7 @@ app = FastAPI()
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "World Wide Web"}
+    return {"Hello": "William Giles"}
 
 
 #returns the repos for a given user
@@ -40,6 +40,13 @@ def github_user_repos(user):
 def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
+
+@app.get("/div/{num_1}/{num_2}")
+def div(num_1: int, num_2: int):
+    div = num_1 / num_2
+    return {"div": div}
+
+
 
 # Let's develop a new one:
 
@@ -97,9 +104,9 @@ def patch_item(item_id: int, item: Item):
 
 
 # Incorporate with boto3: simpler than the `requests` library:
-# @app.get("/aws/s3")
-# def fetch_buckets():
-#     s3 = boto3.client("s3")
-#     response = s3.list_buckets()
-#     buckets = response['Buckets']
-#     return {"buckets": buckets}
+@app.get("/aws/s3")
+def fetch_buckets():
+     s3 = boto3.client("s3")
+     response = s3.list_buckets()
+     buckets = response['Buckets']
+     return {"buckets": buckets}
