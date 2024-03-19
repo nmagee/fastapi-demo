@@ -3,7 +3,9 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-# import boto3
+import json
+import requests
+import boto3
 
 app = FastAPI()
 
@@ -16,6 +18,19 @@ app = FastAPI()
 @app.get("/")  # zone apex
 def read_root():
     return {"Hello": "World"}
+
+@app.get("/github/repos/{user}")
+def github_user_repos(user):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return{"repos":body}
+
+@app.get("/multiply/{num1}/{num2}/{num3}")
+def multiply_this_stuff(num_1, num_2, num_3):
+    product = int(num_1) *int(num_2)* int(num_3)
+    return {"product": product}
+
 
 
 # Endpoints and Methods
@@ -30,7 +45,10 @@ def add_me(number_1: int, number_2: int):
     return {"sum": sum}
 
 # Let's develop a new one:
-
+@app.get("/divide/{number1}/{number2}")
+def divide_me(number_1: int, number_2: int):
+    div = number_2 / number_1
+    return {"quotient":div}
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
@@ -85,9 +103,9 @@ def patch_item(item_id: int, item: Item):
 
 
 # Incorporate with boto3: simpler than the `requests` library:
-# @app.get("/aws/s3")
-# def fetch_buckets():
-#     s3 = boto3.client("s3")
-#     response = s3.list_buckets()
-#     buckets = response['Buckets']
-#     return {"buckets": buckets}
+@app.get("/aws/s3")
+def fetch_buckets():
+    s3 = boto3.client("s3")
+    response = s3.list_buckets()
+    buckets = response['Buckets']
+    return {"buckets": buckets}
