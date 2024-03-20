@@ -10,7 +10,7 @@ image:
 tasks:
   - init: pip install -r requirements.txt
   - name: Run a container for me
-    command: docker run -d -p 6379:6379 redis
+    command: docker run -d -p 6379:6379 -v /workspace/redis-storage:/data redis
 
 ports:
   - name: API
