@@ -8,13 +8,14 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.actor }}/fastapi-demo
   IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBER
+  DOCKER_BUILDKIT: 1
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # - name: Checkout
+      #   uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
