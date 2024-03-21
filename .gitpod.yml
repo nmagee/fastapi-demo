@@ -10,7 +10,7 @@ image:
 tasks:
   - init: pip install -r requirements.txt
   - name: Run a container for me
-    command: docker run -d -p 6379:6379 -v /workspace/redis-storage:/data redis
+    command: docker run -d -p 6379:6379 -v /workspace/redis-storage:/data redis redis-server --save 60 1 --loglevel warning
 
 ports:
   - name: API
@@ -18,4 +18,3 @@ ports:
     port: 8000
     onOpen: open-browser
     visibility: public
-
