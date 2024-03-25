@@ -13,7 +13,7 @@ app = FastAPI()
 # your various endpoints/methods.
 
 # The zone apex is the 'default' page for a URL
-# This will return a simple hello world via GET method.
+# This will return a simple hello world via GET method!
 
 @app.get("/")  # zone apex
 def zone_apex():
