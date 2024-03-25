@@ -12,26 +12,22 @@ app = FastAPI()
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
 
-
 # The zone apex is the 'default' page for a URL
 # This will return a simple hello world via GET method.
-@app.get("/")  # zone apex
-def read_root():
-    return {"Hello": "World"}
 
+@app.get("/")  # zone apex
+def zone_apex():
+    return {"Hello": "Hello Anisha"}
+    
+    
+# api calls within an api!
 @app.get("/github/repos/{user}")
 def github_user_repos(user):
     url = "https://api.github.com/users/" + user + "/repos"
     response = requests.get(url)
     body = json.loads(response.text)
-    return{"repos":body}
-
-@app.get("/multiply/{num1}/{num2}/{num3}")
-def multiply_this_stuff(num_1, num_2, num_3):
-    product = int(num_1) *int(num_2)* int(num_3)
-    return {"product": product}
-
-
+    return {"repos": body}
+  
 
 # Endpoints and Methods
 # /blah - endpoint
@@ -43,12 +39,6 @@ def multiply_this_stuff(num_1, num_2, num_3):
 def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
-
-# Let's develop a new one:
-@app.get("/divide/{number1}/{number2}")
-def divide_me(number_1: int, number_2: int):
-    div = number_2 / number_1
-    return {"quotient":div}
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
