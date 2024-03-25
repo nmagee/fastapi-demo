@@ -8,7 +8,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.actor }}/fastapi-demo
-  IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBER
+  IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBEr
   DOCKER_BUILDKIT: 1
 
 jobs:
