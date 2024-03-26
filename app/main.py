@@ -46,7 +46,11 @@ def div(num_1: int, num_2: int):
     div = num_1 / num_2
     return {"div": div}
 
-
+#new enpoint to return modulus
+@app.get("/mod/{num_1}/{num_2}")
+def mod(num_1: int, num_2: int):
+    mod = num_1 % num_2
+    return {"mod": mod}
 
 # Let's develop a new one:
 
