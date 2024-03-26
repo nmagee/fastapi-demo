@@ -14,7 +14,7 @@ jobs:
         uses: snok/container-retention-policy@v1
         with:
           image-names: fastapi-demo*
-          cut-off: One month ago UTC
+          cut-off: A week ago UTC
           account-type: personal
           keep-at-least: 5
           skip-tags: latest
