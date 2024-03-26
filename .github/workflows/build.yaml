@@ -1,6 +1,7 @@
 name: container-build
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -29,7 +30,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ wangjalen7 }}
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Build and push
