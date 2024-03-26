@@ -52,6 +52,12 @@ def mod(num_1: int, num_2: int):
     mod = num_1 % num_2
     return {"mod": mod}
 
+#new enpoint to return the number of characters in a string
+@app.get("/strcount/{word}")
+def strcount(word: str):
+    word_len = len(word)
+    return {"strcount": word_len}
+
 # Let's develop a new one:
 
 
