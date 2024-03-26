@@ -6,7 +6,9 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor }}/fastapi-demo
+  # Best practice to hard-code your GitHub username below in LOWERCASE.
+  # Update to your own username.
+  IMAGE_NAME: nmagee/fastapi-demo
   IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBER
   DOCKER_BUILDKIT: 1
 
