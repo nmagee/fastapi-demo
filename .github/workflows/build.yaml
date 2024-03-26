@@ -9,7 +9,7 @@ env:
   REGISTRY: ghcr.io
   # Best practice to hard-code your GitHub username below in LOWERCASE.
   # Update to your own username.
-  IMAGE_NAME: nmagee/fastapi-demo
+  IMAGE_NAME: wangjalen7/fastapi-demo
   IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBER
   DOCKER_BUILDKIT: 1
 
@@ -30,7 +30,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: wangjalen7
+          username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Build and push
