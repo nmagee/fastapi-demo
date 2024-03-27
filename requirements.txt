@@ -5,3 +5,5 @@ requests
 uvicorn
 boto3
 redis
+pymongo
+dnspython

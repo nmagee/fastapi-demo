@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+from models import Item, Album
 import json
 import requests
 import boto3
@@ -11,22 +12,13 @@ app = FastAPI()
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
-
+                                     
 # The zone apex is the 'default' page for a URL
 # This will return a simple hello world via GET method.
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "Hello Anisha"}
-    
-    
-# api calls within an api!
-@app.get("/github/repos/{user}")
-def github_user_repos(user):
-    url = "https://api.github.com/users/" + user + "/repos"
-    response = requests.get(url)
-    body = json.loads(response.text)
-    return {"repos": body}
+    return {"Hello": "Hello World"}
 
 # Endpoints and Methods
 # /blah - endpoint
@@ -38,6 +30,7 @@ def github_user_repos(user):
 def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
+
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
@@ -52,24 +45,9 @@ def read_items(item_id: int, q: str = None, s: str = None):
     return {"item_id": item_id, "q": q, "s": s}
 
 
-## Data Modeling
-# Model data you are expecting.
-# Set defaults, data types, etc.
-#
-# Imagine the JSON below as a payload via POST method
-# The endpoint can then parse the data by field (name, description, price, tax)
-# {
-#     "name":"Trek Domaine 5000",
-#     "description": "Racing frame",
-#     "price": 7200,
-#     "tax": 381
-# }
-
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float] = None
+@app.post("/submit")
+def submit_them(album: Album):
+    return {"artist": album.artist, "band": album.title}
 
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
@@ -86,10 +64,13 @@ def patch_item(item_id: int, item: Item):
     return {"action": "patch", "item_id": item_id}
 
 
-# Use another library to make an external API request.
-# An API within an API!
-# https://api.github.com/users/garnaat/repos
-
+# api calls within an api!
+@app.get("/github/repos/{user}")
+def github_user_repos(user):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return {"repos": body}
 
 # Incorporate with boto3: simpler than the `requests` library:
 @app.get("/aws/s3")
