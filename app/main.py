@@ -8,7 +8,17 @@ import json
 import requests
 import boto3
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
