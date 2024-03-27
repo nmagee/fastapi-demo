@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-from models import Item, Album
+# from models import Item
 import json
 import requests
 
@@ -47,14 +47,14 @@ def get_one_album(id):
     
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
-@app.post("/items/{item_id}")
-def add_item(item_id: int, item: Item):
-    return {"item_id": item_id, "item_name": item.name}
+# @app.post("/items/{item_id}")
+# def add_item(item_id: int, item: Item):
+#     return {"item_id": item_id, "item_name": item.name}
 
-@app.delete("/items/{item_id}")
-def delete_item(item_id: int, item: Item):
-    return {"action": "deleted", "item_id": item_id}
+# @app.delete("/items/{item_id}")
+# def delete_item(item_id: int, item: Item):
+#     return {"action": "deleted", "item_id": item_id}
 
-@app.patch("/items/{item_id}")
-def patch_item(item_id: int, item: Item):
-    return {"action": "patch", "item_id": item_id}
+# @app.patch("/items/{item_id}")
+# def patch_item(item_id: int, item: Item):
+#     return {"action": "patch", "item_id": item_id}
