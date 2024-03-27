@@ -12,38 +12,29 @@ app = FastAPI()
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
-                                     
-# The zone apex is the 'default' page for a URL
-# This will return a simple hello world via GET method.
 
 @app.get("/")  # zone apex
 def zone_apex():
     return {"Hello": "Hello World"}
 
-# Endpoints and Methods
-# /blah - endpoint
-# GET/POST/DELETE/PATCH - methods
-# 
-# Simple GET method demo
-# Adds two integers as PATH parameters
-@app.get("/add/{number_1}/{number_2}")
-def add_me(number_1: int, number_2: int):
-    sum = number_1 + number_2
-    return {"sum": sum}
+albums = [
+  {
+    "name":"OK Computer",
+    "artist":"Radiohead",
+    "genre":"rock",
+    "year":1997
+  },
+  {
+    "name":"The Joshua Tree",
+    "artist":"U2",
+    "genre":"rock",
+    "year":1986
+  },
+]
 
-
-## Parameters
-# Introduce parameter data types and defaults from the Optional library
-@app.get("/items/{item_id}")
-def read_items(item_id: int, q: str = None, s: str = None):
-    # to-do: could be used to read from/write to database, use item_id as query parameter
-    # and fetch results. The q and s URL parameters are optional.
-    # - database
-    # - flat text
-    # - another api (internal)
-    # - another api (external)
-    return {"item_id": item_id, "q": q, "s": s}
-
+@app.get("/albums")  # zone apex
+def get_albums():
+    return albums
 
 @app.post("/submit")
 def submit_them(album: Album):
