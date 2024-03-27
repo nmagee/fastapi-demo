@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from models import Item, Album
 import json
 import requests
-import boto3
 
 import os
 import MySQLdb
@@ -19,34 +18,33 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 HOST = os.environ.get('DBHOST')
 USER = os.environ.get('DBUSER')
 PASS = os.environ.get('DBPASS')
+DB = "nem2p"
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "Hello World"}
+    return {"Hello": "Hello API"}
 
 @app.get("/albums")
 def get_albums():
-    db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db="nem2p")
+    db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db=DB)
     c = db.cursor(MySQLdb.cursors.DictCursor)
-    c.execute("""SELECT * FROM albums ORDER BY name LIMIT 20""")
+    c.execute("SELECT * FROM albums ORDER BY name")
     results = c.fetchall()
-    albums = []
-    content = {}
-    for result in results:
-        content = {"name": result['name'], "artist":result['artist'], "genre":result['genre'], "year":result['year']}
-        albums.append(content)
-        content = {}
-    c.close()
     db.close()
-    return albums
+    return results
 
-@app.post("/submit")
-def submit_them(album: Album):
-    return {"artist": album.artist, "band": album.title}
-
+@app.get("/albums/{id}")
+def get_one_album(id):
+    db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("SELECT * FROM albums WHERE id=" + id)
+    results = c.fetchall()
+    db.close()
+    return results[0]
+    
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
 @app.post("/items/{item_id}")
@@ -60,20 +58,3 @@ def delete_item(item_id: int, item: Item):
 @app.patch("/items/{item_id}")
 def patch_item(item_id: int, item: Item):
     return {"action": "patch", "item_id": item_id}
-
-
-# api calls within an api!
-@app.get("/github/repos/{user}")
-def github_user_repos(user):
-    url = "https://api.github.com/users/" + user + "/repos"
-    response = requests.get(url)
-    body = json.loads(response.text)
-    return {"repos": body}
-
-# Incorporate with boto3: simpler than the `requests` library:
-@app.get("/aws/s3")
-def fetch_buckets():
-    s3 = boto3.client("s3")
-    response = s3.list_buckets()
-    buckets = response['Buckets']
-    return {"buckets": buckets}
