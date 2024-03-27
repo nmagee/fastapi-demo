@@ -30,8 +30,12 @@ async function renderData() {
         const body = document.createElement('p');
         body.textContent = item.artist;
 
+        const year = document.createElement('year');
+        year.textContent = item.year + " / " + item.genre;
+
         card.appendChild(title);
         card.appendChild(body);
+        card.appendChild(year);
         container.appendChild(card);
     });
 }

@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static", name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
@@ -38,10 +38,16 @@ albums = [
     "year":1997
   },
   {
+    "name":"More Songs About Buildings and Food",
+    "artist":"Talking Heads",
+    "genre":"rock",
+    "year":1978
+  },
+  {
     "name":"The Joshua Tree",
     "artist":"U2",
     "genre":"rock",
-    "year":1986
+    "year":1987
   },
 ]
 
