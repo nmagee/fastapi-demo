@@ -7,3 +7,4 @@ boto3
 redis
 pymongo
 dnspython
+mysqlclient

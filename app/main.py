@@ -7,6 +7,8 @@ from models import Item, Album
 import json
 import requests
 import boto3
+import os
+import MySQLdb
 
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,29 +32,22 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 def zone_apex():
     return {"Hello": "Hello World"}
 
-albums = [
-  {
-    "name":"OK Computer",
-    "artist":"Radiohead",
-    "genre":"rock",
-    "year":1997
-  },
-  {
-    "name":"More Songs About Buildings and Food",
-    "artist":"Talking Heads",
-    "genre":"rock",
-    "year":1978
-  },
-  {
-    "name":"The Joshua Tree",
-    "artist":"U2",
-    "genre":"rock",
-    "year":1987
-  },
-]
+HOST = os.environ.get('DBHOST')
+USER = os.environ.get('DBUSER')
+PASS = os.environ.get('DBPASS')
+db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db="nem2p")
 
 @app.get("/albums")  # zone apex
 def get_albums():
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("""SELECT * FROM albums LIMIT 20""")
+    results = c.fetchall()
+    albums = []
+    content = {}
+    for result in results:
+        content = {"name": result['name'], "artist":result['artist'], "genre":result['genre'], "year":result['year']}
+        albums.append(content)
+        content = {}
     return albums
 
 @app.post("/submit")
