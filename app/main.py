@@ -25,10 +25,10 @@ DB = "nem2p"
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "Hello API"}
+    return {"Hello": "Hello API", "album_endpoint":"/albums","static_endpoint":"/static"}
 
 @app.get("/albums")
-def get_albums():
+def get_all_albums():
     db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db=DB)
     c = db.cursor(MySQLdb.cursors.DictCursor)
     c.execute("SELECT * FROM albums ORDER BY name")
@@ -43,7 +43,7 @@ def get_one_album(id):
     c.execute("SELECT * FROM albums WHERE id=" + id)
     results = c.fetchall()
     db.close()
-    return results[0]
+    return results
     
 # Start using the "Item" BaseModel
 # Post / Delete / Patch methods
