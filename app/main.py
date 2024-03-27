@@ -8,6 +8,7 @@ import json
 import requests
 import boto3
 
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -19,6 +20,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory="static", name="static")
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
