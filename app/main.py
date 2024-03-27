@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static", html = True), name="static")
 
 HOST = os.environ.get('DBHOST')
 USER = os.environ.get('DBUSER')
