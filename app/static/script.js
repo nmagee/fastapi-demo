@@ -1,4 +1,5 @@
-let api = 'https://8000-nmagee-fastapidemo-t7cf8xwxbxf.ws-us110.gitpod.io/albums'
+// let api = 'https://8000-nmagee-fastapidemo-t7cf8xwxbxf.ws-us110.gitpod.io/albums';
+let api = '/albums';
 
 // Function to fetch data from the API
 async function fetchData() {
