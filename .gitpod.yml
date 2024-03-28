@@ -5,8 +5,8 @@ tasks:
     before: pip install -r requirements.txt
   - name: MySQL Client
     before: sudo apt install -y mysql-client
-  - name: Start PhpMyAdmin
-    command: docker run -d -e PMA_HOST=$DBHOST -e PMA_USER=$DBUSER -e PMA_PASSWORD=$DBPASS -p 8001:80 phpmyadmin
+  # - name: Start PhpMyAdmin
+  #   command: docker run -d -e PMA_HOST=$DBHOST -e PMA_USER=$DBUSER -e PMA_PASSWORD=$DBPASS -p 8001:80 phpmyadmin
   - name: Start uvicorn
     command: sleep 30 && /usr/bin/bash /workspace/fastapi-demo/preview.sh
 
