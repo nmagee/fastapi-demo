@@ -2,11 +2,11 @@
 # We will add more DBs to this as we move forward.
 tasks:
   - name: Python Dependencies
-    init: pip install -r requirements.txt
+    before: pip install -r requirements.txt
   - name: MySQL Client
-    command: sudo apt install -y mysql-client
+    before: sudo apt install -y mysql-client
   - name: Start PhpMyAdmin
-    command: docker run -d -e PMA_HOST=$DBHOST -e PMA_USER=$DBUSER -e PMA_PASSWORD=$DBPASS -p 8001:80 phpmyadmin
+    init: docker run -d -e PMA_HOST=$DBHOST -e PMA_USER=$DBUSER -e PMA_PASSWORD=$DBPASS -p 8001:80 phpmyadmin
   - name: Start uvicorn
     command: /usr/bin/bash /workspace/fastapi-demo/preview.sh
 
