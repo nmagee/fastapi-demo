@@ -1,7 +1,8 @@
 # Then we add init tasks when the environment is started.
 # We will add more DBs to this as we move forward.
 tasks:
-  - init: pisp install -r requirements.txt
+  - name: Python Dependencies
+    init: pip install -r requirements.txt
   - name: MySQL Client
     command: sudo apt install -y mysql-client
   - name: Start PhpMyAdmin
