@@ -14,19 +14,13 @@
 # We will add more DBs to this as we move forward.
 tasks:
   - init: pip install -r requirements.txt
-#   - name: Run a container for me
-#     command: docker run -d -p 6379:6379 -v /workspace/redis-storage:/data redis redis-server --save 60 1 --loglevel warning
+  - init: sudo apt install mysql-client
 
 # We have also customized the environment so that whenever we run an app on port 8000 it
 # is automatically made public and is opened up in a browser.
 ports:
   - name: API
     description: Preview changes to your application
-    port: 8000
-    onOpen: open-browser
-    visibility: public
-  - name: PhpMyAdmin
-    description: Explore SQL data
-    port: 8080
+    port: 8000-9000
     onOpen: open-browser
     visibility: public

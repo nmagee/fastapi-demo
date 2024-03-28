@@ -15,9 +15,9 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static", html = True), name="static")
 
-HOST = os.environ.get('DBHOST')
-USER = os.environ.get('DBUSER')
-PASS = os.environ.get('DBPASS')
+DBHOST = os.environ.get('DBHOST')
+DBUSER = os.environ.get('DBUSER')
+DBPASS = os.environ.get('DBPASS')
 DB = "nem2p"
 
 # The URL for this API has a /docs endpoint that lets you see and test
@@ -29,7 +29,7 @@ def zone_apex():
 
 @app.get("/albums")
 def get_all_albums():
-    db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db=DB)
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
     c = db.cursor(MySQLdb.cursors.DictCursor)
     c.execute("SELECT * FROM albums ORDER BY name")
     results = c.fetchall()
@@ -38,7 +38,7 @@ def get_all_albums():
 
 @app.get("/albums/{id}")
 def get_one_album(id):
-    db = MySQLdb.connect(host=HOST, user=USER, passwd=PASS, db=DB)
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
     c = db.cursor(MySQLdb.cursors.DictCursor)
     c.execute("SELECT * FROM albums WHERE id=" + id)
     results = c.fetchall()
