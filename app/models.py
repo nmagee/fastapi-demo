@@ -21,7 +21,7 @@ class Item(BaseModel):
     tax: Optional[float] = None
 
 class Album(BaseModel):
+    name: str
     artist: str
-    title: str
     genre: Optional[str] = None
     year: int
