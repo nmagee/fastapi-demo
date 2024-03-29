@@ -2,7 +2,6 @@ uvicorn
 fastapi
 typing
 pydantic
-requests
 pymongo
 dnspython
 mysqlclient
