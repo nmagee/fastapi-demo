@@ -31,11 +31,22 @@ def zone_apex():
 
 #get the albums 
 @app.get("/albums")
-def get_albums():
+def get_all_albums():
     db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
     c = db.cursor(MySQLdb.cursors.DictCursor)
-    c.execute("""SELECT * FROM albums ORDER BY name""")
+    c.execute("SELECT * FROM albums ORDER BY name")
     results = c.fetchall()
+    db.close()
+    return results
+
+#get single album
+@app.get("/albums/{id}")
+def get_one_album(id):
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("SELECT * FROM albums WHERE id=" + id)
+    results = c.fetchall()
+    db.close()
     return results
 
 #returns the repos for a given user
