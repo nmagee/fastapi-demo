@@ -29,6 +29,14 @@ DB = "spq4pq"  # replace with your UVA computing ID / database name
 def zone_apex():
     return {"Hello": "William Giles"}
 
+#get the albums 
+@app.get("/albums")
+def get_albums():
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("""SELECT * FROM albums ORDER BY name""")
+    results = c.fetchall()
+    return results
 
 #returns the repos for a given user
 @app.get("/github/repos/{user}")
