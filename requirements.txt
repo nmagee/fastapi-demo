@@ -4,3 +4,4 @@ pydantic
 requests
 uvicorn
 boto3
+mysqlclient
