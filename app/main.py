@@ -3,7 +3,6 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-from models import Item, Album
 import json
 import os
 import MySQLdb
