@@ -12,7 +12,7 @@ From within Gitpod, you have a full IDE to work with the code. You can run comma
 
 ### Local
 
-After forking this repository for your own work, you may need to set up an isolated environment in Python. I would suggest using `pipenv` for this:
+After forking this repository for your own work, you may need to set up an isolated environment in Python. I suggest using `pipenv` for this:
 
 ```
 # Install pipenv itself
