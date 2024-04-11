@@ -2,7 +2,7 @@ name: container-build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
 env:
   REGISTRY: ghcr.io

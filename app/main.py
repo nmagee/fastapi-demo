@@ -22,8 +22,6 @@ DB = "nem2p"
 def zone_apex():
     return {"Hello": "Hello API", "album_endpoint":"/albums","static_endpoint":"/static"}
 
-
-
 @app.get("/albums")
 def get_all_albums():
     db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
@@ -32,7 +30,6 @@ def get_all_albums():
     results = c.fetchall()
     db.close()
     return results
-
 
 # @app.get("/albums/{id}")
 # def get_one_album(id):
@@ -43,24 +40,3 @@ def get_all_albums():
 #     db.close()
 #     return results
     
-
-
-
-
-# @app.post("/albums")
-# def add_an_album(album: Album):
-#     return {"name": album.name, "artist":album.artist, "genre": album.genre, "year":album.year}
-
-
-
-# @app.post("/items/{item_id}")
-# def add_item(item_id: int, item: Item):
-#     return {"item_id": item_id, "item_name": item.name}
-
-# @app.delete("/items/{item_id}")
-# def delete_item(item_id: int, item: Item):
-#     return {"action": "deleted", "item_id": item_id}
-
-# @app.patch("/items/{item_id}")
-# def patch_item(item_id: int, item: Item):
-#     return {"action": "patch", "item_id": item_id}
