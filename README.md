@@ -90,3 +90,5 @@ Look in `.build.yml` for a sample template that completes the following steps:
 3. Pushes an SQS message to Amazon triggering a re-deployment of the app in DCOS.
 
 To enable this pipeline, place it in `.github/workflows/` and git push. Some repository secrets must be set before builds will work.
+
+> post template
