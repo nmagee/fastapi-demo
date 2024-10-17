@@ -2,13 +2,11 @@
 
 ## Getting Started
 
-### Gitpod
+### GitHub Codespaces
 
-The easiest way to start working is to append `https://gitpod.io/#` before the URL of your GitHub repository. This should look something like (but use the URL of your fork):
+The easiest way to start working is to open your GitHub repository in GitHub Codespaces.
 
-> [**https://gitpod.io/#https://github.com/nmagee/fastapi-demo**](https://gitpod.io/#https://github.com/nmagee/fastapi-demo)
-
-From within Gitpod, you have a full IDE to work with the code. You can run commands in the terminal, preview the application by running the `./preview.sh` script, and normal `git` add/commit/push commands.
+From within that environment, you have a full IDE to work with the code, run commands in the terminal, preview the application by running the `./preview.sh` script, and perform normal `git` add/commit/push commands.
 
 ### Local
 
