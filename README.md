@@ -67,7 +67,7 @@ For more on catching POST payloads in JSON, or form parameters, consult the Fast
 
 ## Build the Container
 
-Build locally with the `docker build` command:
+Build locally using the `docker build` command:
 ```
 docker build -t some_org/some_image:some_tag .
 ```
