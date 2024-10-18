@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd app
-/home/gitpod/.pyenv/shims/uvicorn main:app --reload --log-level debug
+uvicorn main:app --reload --log-level debug

@@ -1,7 +1,7 @@
 uvicorn
-fastapi
+fastapi[standard]
 typing
 pydantic
-pymongo
-dnspython
-mysqlclient
+# pymongo
+# dnspython
+# mysqlclient
