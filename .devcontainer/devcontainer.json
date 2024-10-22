@@ -13,8 +13,8 @@
 
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/workspace/fastapi-demo,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
 	]
 	// Configure tool-specific properties.
 	// "customizations": {},
