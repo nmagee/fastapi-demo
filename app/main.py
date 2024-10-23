@@ -20,10 +20,6 @@ def add(a: int, b: int):
 def multiply(c: int, d: int):  # Corrected function name and removed extra brace
     return {"product": c * d}
 
-@app.get("/subtract/{e}/{f}")
-def subtract(e: int, f: int):  # Removed extra brace
-    return {"result": e - f}
-
 @app.get("/divide/{g}/{h}")
 def divide(g: int, h: int):  # Removed extra brace
     return {"quotient": g / h}
