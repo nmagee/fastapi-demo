@@ -24,3 +24,11 @@ def multiply(c: int, d: int):
 @app.get("/square/{e}")
 def square(e: int):
     return {"square": e * e}
+
+@app.get("/loop/{f}")
+def loop(f: int):
+    empt = ""
+    for i in range(f):
+        empt+=str(i)
+        
+    return {empt}
