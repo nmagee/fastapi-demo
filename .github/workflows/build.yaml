@@ -1,6 +1,7 @@
 name: container-build
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -8,7 +9,7 @@ env:
   REGISTRY: ghcr.io
   # Best practice to hard-code your GitHub username below in LOWERCASE.
   # Update to your own GitHub username.
-  IMAGE_NAME: nmagee/fastapi-demo
+  IMAGE_NAME: ryanerm/fastapi-demo
   IMAGE_TAG: 1.${{ github.run_number }} # GITHUB_RUN_NUMBER
   DOCKER_BUILDKIT: 1
 
