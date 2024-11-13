@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from pydantic import BaseModel
 import mysql.connector
@@ -17,9 +16,9 @@ DB = "nem2p"
 db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
 cur=db.cursor()
 
-
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -45,7 +44,6 @@ def get_genres():
     except Error as e:
         print("MySQL Error: ", str(e))
         return None
-    cur.close()
 
 @app.get('/songs')
 def get_genres():
@@ -61,4 +59,3 @@ def get_genres():
     except Error as e:
         print("MySQL Error: ", str(e))
         return None
-    cur.close()
