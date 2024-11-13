@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from pydantic import BaseModel
 import mysql.connector
@@ -18,6 +19,13 @@ cur=db.cursor()
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")  # zone apex
 def zone_apex():
