@@ -9,7 +9,7 @@ import json
 import os
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
-DBUSER = "admin"
+DBUSER = "ds2022"
 DBPASS = os.getenv('DBPASS')
 DB = "nem2p"
 
@@ -32,7 +32,7 @@ def zone_apex():
 
 @app.get('/genres')
 def get_genres():
-    query = "SELECT * FROM genres ORDER BY genreid;"
+    query = "SELECT * FROM genres ORDER BY . genreid;"
     try:    
         cur.execute(query)
         headers=[x[0] for x in cur.description]
@@ -43,7 +43,7 @@ def get_genres():
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
-        return None
+        return {"Error": "MySQL Error: " + str(e)}
 
 @app.get('/songs')
 def get_genres():
