@@ -31,7 +31,7 @@ def zone_apex():
     return {"Good Day": "Sunshine!"}
 
 @app.get('/genres')
-def get_genres():
+async def get_genres():
     query = "SELECT * FROM genres ORDER BY . genreid;"
     try:    
         cur.execute(query)
@@ -40,13 +40,15 @@ def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
+        cur.close()
+        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
         return {"Error": "MySQL Error: " + str(e)}
 
 @app.get('/songs')
-def get_genres():
+async def get_genres():
     query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, songs.image, genres.genre FROM songs JOIN genres WHERE songs.genre = genres.genreid;"
     try:    
         cur.execute(query)
@@ -55,6 +57,8 @@ def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
+        cur.close()
+        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
