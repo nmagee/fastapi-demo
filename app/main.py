@@ -7,6 +7,9 @@ import mysql.connector
 from mysql.connector import Error
 import json
 import os
+from mysql.connector import RefreshOption
+
+refresh = RefreshOption.LOG | RefreshOption.THREADS
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "admin"
@@ -32,7 +35,7 @@ def zone_apex():
 
 @app.get('/genres')
 async def get_genres():
-    db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+    db.cmd_refresh(refresh)
     query = "SELECT * FROM genres ORDER BY genreid;"
     try:    
         cur.execute(query)
@@ -48,7 +51,7 @@ async def get_genres():
 
 @app.get('/songs')
 async def get_genres():
-    cur = db.cursor()
+    db.cmd_refresh(refresh)
     query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, songs.image, genres.genre FROM songs JOIN genres WHERE songs.genre = genres.genreid;"
     try:    
         cur.execute(query)
