@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 
 from fastapi import FastAPI
-from typing import Optional
-from pydantic import BaseModel
+# from typing import Optional
+# from pydantic import BaseModel
 import mysql.connector
 from mysql.connector import Error
 import json
 import os
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
-DBUSER = "ds2022"
+DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
 DB = "nem2p"
 
-db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB, ssl_disabled=True)
 cur=db.cursor()
 
 app = FastAPI()
@@ -32,7 +32,8 @@ def zone_apex():
 
 @app.get('/genres')
 async def get_genres():
-    query = "SELECT * FROM genres ORDER BY . genreid;"
+    db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+    query = "SELECT * FROM genres ORDER BY genreid;"
     try:    
         cur.execute(query)
         headers=[x[0] for x in cur.description]
@@ -40,8 +41,6 @@ async def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        cur.close()
-        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
@@ -49,6 +48,7 @@ async def get_genres():
 
 @app.get('/songs')
 async def get_genres():
+    cur = db.cursor()
     query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, songs.image, genres.genre FROM songs JOIN genres WHERE songs.genre = genres.genreid;"
     try:    
         cur.execute(query)
@@ -57,8 +57,6 @@ async def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        cur.close()
-        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
