@@ -7,21 +7,13 @@ import mysql.connector
 from mysql.connector import Error
 import json
 import os
-# from mysql.connector import RefreshOption
-
-# refresh = RefreshOption.LOG
-# refresh = RefreshOption.LOG | RefreshOption.THREADS
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
 DB = "nem2p"
 
-# db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB, ssl_disabled=True)
-# cur=db.cursor()
-
 app = FastAPI()
-
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
