@@ -23,28 +23,6 @@ app.add_middleware(
 def zone_apex():
     return {"Hello": "Hello API"}
 
-@app.get("/add/{a}/{b}")
-def add(a: int, b: int):
-    return {"sum": a + b}
-
-#@app.get("/customer/{idx}")
-#def get_customer(idx: int):
-    #get the data
-    df = pd.read_csv("../customers.csv")
-    #filter the data by index
-    customer = df.iloc[idx]
-    #the output is the customer that we found, so we are making it a dictionary
-    return customer.to_dict()
-
-#@api.get("/get_payload/{idx}")
-#async def get_payload(request: Request): #async and await are little markers telling the system that it is ok if the system takes a sec
-    #response = await request.json()
-    #geo = response.get("geo")
-    #url = "https://maps.google.com/?q={geo}".format(geo = geo)
-
-    #return await request.json
-
-
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "admin"
