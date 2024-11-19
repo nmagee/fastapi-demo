@@ -12,7 +12,7 @@ from mysql.connector import RefreshOption
 refresh = RefreshOption.LOG | RefreshOption.THREADS
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
-DBUSER = "admin"
+DBUSER = "ds2022"
 DBPASS = os.getenv('DBPASS')
 DB = "nem2p"
 
