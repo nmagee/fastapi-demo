@@ -9,7 +9,8 @@ import json
 import os
 from mysql.connector import RefreshOption
 
-refresh = RefreshOption.LOG | RefreshOption.THREADS
+refresh = RefreshOption.LOG
+# refresh = RefreshOption.LOG | RefreshOption.THREADS
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "ds2022"
