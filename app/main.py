@@ -28,7 +28,6 @@ def zone_apex():
 
 @app.get('/genres')
 async def get_genres():
-    # db.cmd_refresh(refresh)
     db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB, ssl_disabled=True)
     cur = db.cursor()
     query = "SELECT * FROM genres ORDER BY genreid;"
@@ -50,7 +49,6 @@ async def get_genres():
 
 @app.get('/songs')
 async def get_genres():
-    # db.cmd_refresh(refresh)
     db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB, ssl_disabled=True)
     cur = db.cursor()
     query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, songs.image, genres.genre FROM songs JOIN genres WHERE songs.genre = genres.genreid;"
