@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 
-from fastapi import FastAPI
-# from typing import Optional
-# from pydantic import BaseModel
-import mysql.connector
-from mysql.connector import Error
 import json
 import os
-
-DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
-DBUSER = "admin"
-DBPASS = os.getenv('DBPASS')
-DB = "nem2p"
+from fastapi import FastAPI
+import mysql.connector
+from mysql.connector import Error
 
 app = FastAPI()
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +14,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
+DBUSER = "admin"
+DBPASS = os.getenv('DBPASS')
+DB = "nem2p"
 
 @app.get("/")  # zone apex
 def zone_apex():
@@ -38,14 +36,13 @@ async def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        cur.close()
-        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
+        return {"Error": "MySQL Error: " + str(e)}
+    finally:
         cur.close()
         db.close()
-        return {"Error": "MySQL Error: " + str(e)}
 
 @app.get('/songs')
 async def get_genres():
@@ -59,11 +56,10 @@ async def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        cur.close()
-        db.close()
         return(json_data)
     except Error as e:
         print("MySQL Error: ", str(e))
+        return None
+    finally:
         cur.close()
         db.close()
-        return None
