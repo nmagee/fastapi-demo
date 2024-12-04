@@ -1,7 +1,9 @@
 uvicorn
 fastapi[standard]
-typing
-pydantic
+mysql-connector-python
+
+# typing
+# pydantic
 # pymongo
 # dnspython
 # mysqlclient
