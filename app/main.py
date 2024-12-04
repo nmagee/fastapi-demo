@@ -23,7 +23,7 @@ app.add_middleware(
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
-DB = "nem2p"  # You can modify this as needed, i.e., "vwr6nd" or "nem2p"
+DB = "vwr6nd"  # You can modify this as needed, i.e., "vwr6nd" or "nem2p"
 
 @app.get("/")  # Zone apex route
 def zone_apex():
