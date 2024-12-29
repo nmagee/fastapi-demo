@@ -1,4 +1,5 @@
 ![Build Status](https://img.shields.io/github/actions/workflow/status/nmagee/fastapi-demo/build.yaml)
+![Commits](https://img.shields.io/github/commit-activity/t/nmagee/fastapi-demo)
 ![GitHub Release](https://img.shields.io/github/v/release/nmagee/fastapi-demo)
 
 
