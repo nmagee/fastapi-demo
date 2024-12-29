@@ -1,3 +1,6 @@
+![GitHub Release](https://img.shields.io/github/v/release/nmagee/fastapi-demo)
+
+
 # FastAPI Demo
 
 ## Getting Started
