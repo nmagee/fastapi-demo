@@ -1,9 +1,3 @@
-uvicorn
-fastapi[standard]
-mysql-connector-python
-
-# typing
-# pydantic
-# pymongo
-# dnspython
-# mysqlclient
+fastapi[standard]==0.115.13
+mysql-connector-python==9.3.0
+uvicorn==0.34.3
