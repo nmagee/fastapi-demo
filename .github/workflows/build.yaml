@@ -1,8 +1,14 @@
 name: container-build
 
 on:
-  push:
-    branches: [ main, dp1 ]
+  # push:
+  #   branches: [ main, dp1 ]
+  workflow_run:
+    workflows: ["test-container"]
+    types:
+      - completed
+    branches: [main]
+
 
 env:
   REGISTRY: ghcr.io
