@@ -1,0 +1,41 @@
+name: Test Container
+
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t test-image .
+
+      - name: Run container
+        run: docker run -d -p 8080:80 --name test-container test-image
+
+      - name: Wait for container to start
+        run: |
+          echo "Waiting for container to start..."
+          sleep 10
+
+      - name: Test root endpoint
+        run: |
+          curl -f http://localhost:8080/
+          if [ $? -ne 0 ]; then
+            echo "Failed to get a 200 OK response from the root endpoint."
+            exit 1
+          fi
+
+      - name: Test docs endpoint
+        run: |
+          curl -f http://localhost:8080/docs
+          if [ $? -ne 0 ]; then
+            echo "Failed to get a 200 OK response from the /docs endpoint."
+            exit 1
+          fi
+
+      - name: Stop and remove container
+        if: always()
+        run: docker stop test-container && docker rm test-container
