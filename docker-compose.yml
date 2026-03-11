@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - api-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongodb_data:/data/db
+    restart: always
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=password
+    depends_on:
+      - mongodb
+    ports:
+      - 8000:80
+    networks:
+      - api-network
+    restart: always
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+    name: mongodb_data

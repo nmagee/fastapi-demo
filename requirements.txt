@@ -1,3 +1,4 @@
-fastapi[standard]==0.118.0
-mysql-connector-python==9.4.0
-uvicorn==0.37.0
+fastapi[standard]
+uvicorn
+pymongo
+httpx
