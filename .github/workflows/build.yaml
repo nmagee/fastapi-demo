@@ -7,7 +7,7 @@ on:
     workflows: ["test-container"]
     types:
       - completed
-    branches: [main]
+    branches: [main, refact]
 
 
 env:
