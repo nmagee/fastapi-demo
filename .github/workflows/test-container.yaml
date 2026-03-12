@@ -1,0 +1,85 @@
+name: test-container
+
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker compose build
+
+      - name: Start services
+        run: docker compose up -d
+
+      - name: Wait for API to be ready
+        run: |
+          echo "Waiting for API to be ready..."
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:8000/ > /dev/null 2>&1; then
+              echo "API is ready."
+              break
+            fi
+            echo "Attempt $i: not ready yet, waiting 3s..."
+            sleep 3
+          done
+          curl -sf http://localhost:8000/ || (echo "API never became ready." && exit 1)
+
+      - name: Test root endpoint
+        run: |
+          curl -sf http://localhost:8000/
+          echo "Root endpoint OK"
+
+      - name: Test docs endpoint
+        run: |
+          curl -sf http://localhost:8000/docs
+          echo "Docs endpoint OK"
+
+      - name: Insert a document into MongoDB via POST /people
+        id: insert
+        run: |
+          RESPONSE=$(curl -sf -X POST http://localhost:8000/people \
+            -H "Content-Type: application/json" \
+            -d '{"name": "Test User", "email": "test@example.com"}')
+          echo "Insert response: $RESPONSE"
+          PERSON_ID=$(echo "$RESPONSE" | jq -r '.id')
+          echo "Inserted ID: $PERSON_ID"
+          echo "person_id=$PERSON_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch documents from MongoDB via GET /people
+        run: |
+          RESPONSE=$(curl -sf http://localhost:8000/people)
+          echo "Fetch response: $RESPONSE"
+          COUNT=$(echo "$RESPONSE" | jq 'length')
+          echo "Document count: $COUNT"
+          if [ "$COUNT" -lt 1 ]; then
+            echo "Expected at least one document but got $COUNT"
+            exit 1
+          fi
+          echo "Fetch test OK"
+
+      - name: Delete the document via DELETE /people/{id}
+        run: |
+          PERSON_ID="${{ steps.insert.outputs.person_id }}"
+          echo "Deleting person ID: $PERSON_ID"
+          RESPONSE=$(curl -sf -X DELETE "http://localhost:8000/people/$PERSON_ID")
+          echo "Delete response: $RESPONSE"
+          echo "Delete test OK"
+
+      - name: Verify document was deleted
+        run: |
+          RESPONSE=$(curl -sf http://localhost:8000/people)
+          COUNT=$(echo "$RESPONSE" | jq 'length')
+          echo "Document count after delete: $COUNT"
+          if [ "$COUNT" -ne 0 ]; then
+            echo "Expected 0 documents after delete but got $COUNT"
+            exit 1
+          fi
+          echo "Delete verification OK"
+
+      - name: Tear down services
+        if: always()
+        run: docker compose down -v
