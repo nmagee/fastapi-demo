@@ -7,8 +7,7 @@ on:
     workflows: ["test-container"]
     types:
       - completed
-    branches: [main, refact]
-
+    branches: [main]
 
 env:
   REGISTRY: ghcr.io
