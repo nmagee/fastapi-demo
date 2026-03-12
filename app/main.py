@@ -3,6 +3,7 @@
 import json
 import os
 import logging
+from tkinter import N
 from fastapi import FastAPI, Request
 import pymongo
 from pymongo import MongoClient
@@ -53,7 +54,7 @@ async def create_person(request: Request):
     collection = db['people']
     collection.insert_one({'name': name, 'email': email})
     logger.info(f"Person {name} created successfully")
-    return {"message": "Person created successfully"}
+    return {"message": f"Person {name} created successfully"}
 
 @app.get('/people/delete/{person_id}')
 async def delete_person(person_id: str):
@@ -61,4 +62,4 @@ async def delete_person(person_id: str):
     collection = db['people']
     collection.delete_one({'_id': ObjectId(person_id)})
     logger.info(f"Person {person_id} deleted successfully")
-    return {"message": "Person deleted successfully"}
+    return {"message": f"Person {person_iddeleted successfully"}
