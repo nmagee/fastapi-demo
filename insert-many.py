@@ -1,4 +1,4 @@
-import httpx
+import requests
 
 
 people = [
@@ -16,9 +16,9 @@ people = [
 
 for person in people:
     print("Creating person")
-    response = httpx.post('http://localhost:8000/people', json=person)
+    response = requests.post('http://localhost:8000/people', json=person)
     print(response.json())
 
 print("Getting people")
-response = httpx.get('http://localhost:8000/people')
+response = requests.get('http://localhost:8000/people')
 print(response.json())
