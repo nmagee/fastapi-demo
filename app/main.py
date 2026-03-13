@@ -3,7 +3,6 @@
 import json
 import os
 import logging
-from tkinter import N
 from fastapi import FastAPI, Request
 import pymongo
 from pymongo import MongoClient
@@ -62,4 +61,4 @@ async def delete_person(person_id: str):
     collection = db['people']
     collection.delete_one({'_id': ObjectId(person_id)})
     logger.info(f"Person {person_id} deleted successfully")
-    return {"message": f"Person {person_iddeleted successfully"}
+    return {"message": f"Person {person_id} deleted successfully"}
