@@ -3,6 +3,7 @@
 import json
 import os
 import logging
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 import pymongo
 from pymongo import MongoClient
@@ -11,12 +12,22 @@ from bson import ObjectId
 MONGO_USERNAME = os.getenv('MONGO_USERNAME')
 MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
 
-client = MongoClient('mongodb://mongodb:27017/', username=MONGO_USERNAME, password=MONGO_PASSWORD)
-
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI()
+# Use a global client variable but initialize it in lifespan
+client = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global client
+    logger.info("Initializing MongoDB client")
+    client = MongoClient('mongodb://mongodb:27017/', username=MONGO_USERNAME, password=MONGO_PASSWORD)
+    yield
+    logger.info("Closing MongoDB client")
+    client.close()
+
+app = FastAPI(lifespan=lifespan)
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
